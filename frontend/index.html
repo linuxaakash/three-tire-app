@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Three-Tier DevOps Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef3f8;
+      margin: 0;
+      padding: 40px 16px;
+    }
+    main {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #0001;
+    }
+    h1 { color: #164b78; }
+    li {
+      padding: 12px;
+      margin: 10px 0;
+      background: #f2f6fa;
+      border-radius: 8px;
+    }
+    .status { color: #187443; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Three-Tier Application</h1>
+    <p>Frontend: Nginx</p>
+    <p>Backend: Node.js REST API</p>
+    <p>Database: MySQL</p>
+    <p id="status">Loading employees...</p>
+    <ul id="employees"></ul>
+  </main>
+
+  <script>
+    async function loadEmployees() {
+      const status = document.getElementById("status");
+      const list = document.getElementById("employees");
+
+      try {
+        const response = await fetch("/api/employees");
+        if (!response.ok) throw new Error("API request failed");
+
+        const employees = await response.json();
+        list.replaceChildren();
+
+        employees.forEach(employee => {
+          const item = document.createElement("li");
+          item.textContent =
+            `${employee.name} — ${employee.role}`;
+          list.appendChild(item);
+        });
+
+        status.textContent = "Backend and database connected!";
+        status.className = "status";
+      } catch (error) {
+        status.textContent = "Could not load employee data.";
+      }
+    }
+
+    loadEmployees();
+  </script>
+</body>
+</html>
