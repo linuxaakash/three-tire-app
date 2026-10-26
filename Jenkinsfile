@@ -40,21 +40,7 @@ pipeline {
        
 stage('Build Images') {
     steps {
-        withCredentials([
-            string(
-                credentialsId: 'mysql-root-password',
-                variable: 'MYSQL_ROOT_PASSWORD'
-            ),
-            string(
-                credentialsId: 'app-db-password',
-                variable: 'DB_PASSWORD'
-            )
-        ]) {
-            sh '''
-                set +x
-                docker-compose -f docker-compose.yml build
-            '''
-        }
+        sh 'docker-compose -f docker-compose.yml build'
     }
 }
 
