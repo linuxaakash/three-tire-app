@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-               https://github.com/linuxaakash/three-tire-app.git
+              git branch: 'master' ,url: 'https://github.com/linuxaakash/three-tire-app.git'
             }
         }
 
