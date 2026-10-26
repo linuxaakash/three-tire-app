@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+               https://github.com/linuxaakash/three-tire-app.git
             }
         }
 
